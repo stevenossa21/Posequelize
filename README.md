@@ -1,1 +1,1 @@
-# Posequelize
+# Posequelize project
