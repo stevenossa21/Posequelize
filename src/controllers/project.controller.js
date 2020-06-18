@@ -1,4 +1,52 @@
 import Project from '../models/Project'
+
+export async function getProjects(req, res){
+   try {
+    const projects = await Project.findAll();
+
+    res.json({
+        data: projects
+    });
+   } catch (error) {
+       console.log(error);
+   }
+};
+
+export async function getOneProject(req, res){
+  try {
+    const { id } = req.params;  
+    const project = await Project.findOne({
+        where: {
+            id: id
+        }
+    });
+
+    res.json({
+        data: project
+    });
+  } catch (error) {
+      console.log(error);
+      
+  }
+}
+
+export async function deleteProject(req, res){
+    const { id } = req.params;
+    let deleteRowCount = await Project.destroy({
+        where: {
+            id: id
+        }
+    });
+
+    res.json({
+        message: 'Project deleted successfully',
+        RowsCount: deleteRowCount
+    });
+
+
+}
+
+
 export async function createProject(req, res) {
     const {
         name,
@@ -29,4 +77,5 @@ export async function createProject(req, res) {
     }
     console.log(req.body);
     res.send('Req body received ');
-}
+};
+
